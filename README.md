@@ -25,43 +25,42 @@ We aim to tackle the problem through a three-pronged approach:
 # Description
 
 ## Vue
+We used `VUE3 cli` for this project. This allowed us to customize configuration. [Configuration Reference](https://cli.vuejs.org/config/).
 
-We used `VUE3 cli` for this project. Most notable portions included the use of
-
+Most notable portions included the use of 
 - VUE Routers
 
 We created `components` that were reused in various places and imported them where needed to streamline the application. Such components include NavBar and Footer. 
 
 ## Bootstrap & CSS
+We made use of the `12-point grid system` to help make our application responsive. We utilised Bootstrap features like `modal`, `accordian panel` and we styled our webite using CSS and icons. We took ideas for our marketplace design from exisiting HTML templates such as [this](https://startbootstrap.com/template/shop-homepage).
 
-We made use of the `12-point grid system` to help make our application responsive. We utilised Bootstrap features like `modal`, `accordian panel` and we styled our `cards` and `buttons` using CSS and icons. We took ideas for our marketplace design from exisiting HTML templates such as [this](https://startbootstrap.com/template/shop-homepage)
+# API used
+We incoporated [GoogleMaps API](https://developers.google.com/maps) into the project.
+
+This API can be found in our Checkout page under the accordian panel titled 'Display Locations on  Maps'. The map generated serves as a visual indication of the distance between the buyer and the seller, and allows the buyer to decide on a self pickup or delivery option! 
 
 # Beyond the Lab
 
 ## Github
-
 We created a `repo` and used it for version control and collaboration. 
 
 ## Pinia and localStorage
-
 We used `VUE's` offical state management library `Pinia` for global state management across our application. We also incorporated browser's `localStorage` where appropriate.
 
 This allowed us to persist information when routing through different views and through refresh.
 
 ## AWS RDS and MySQL
-
 We used `Amazons RDS` as a managed relational database service for the `MySQL` server. It allowed us to operate and scale the database on cloud. 
 
 ## Animation Libraries
-
-We used `Lottiefiles` and `Vueuse motion` to allow us to have scroll animations and incorporate lightweight SVG animation files. In addition, we created `skeleton loaders` for the pages that required an `asynchronous operation` with either our backend or database.
-
+We used `Lottiefiles` to incorporate lightweight SVG animation files.
 
 # Project setup
 ### Access project folder and and download dependencies
 
 ```sh
-cd Freshsavings
+cd freshsavings
 npm install
 ```
 
@@ -80,9 +79,56 @@ npm run build
 ```sh
 npm run lint
 ```
+# Accessing application
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Log in with these credentials
+You may log into our pages using any of the following credentials.
+```sh
+credentials_list = [
+    ("john@gmail.com", "password1"),
+    ("jane@gmail.com", "password2"),
+    ("michael@gmail.com", "password3"),
+    ("emily@gmail.com", "password4"),
+]
+```
 
-# Backend
-The main API we incoporated into the project was [GoogleMaps API](https://developers.google.com/maps).
+## Inventory Tracker
+To create a new item, you need to access the 'new item' button. 
+A modal pop ups and you can enter the name of any food items found in the list below. 
+
+```sh
+food_list = [
+    "Apple",
+    "Banana",
+    "Beef",
+    "Blueberries",
+    "Butter",
+    "Cheese",
+    "Chicken",
+    "Cod",
+    "Cottage Cheese",
+    "Crab",
+    "Cream",
+    "Duck",
+    "Eggs",
+    "Grapes",
+    "Kiwi",
+    "Lamb",
+    "Lobster",
+    "Milk",
+    "Mozzarella",
+    "Orange",
+    "Pineapple",
+    "Pork",
+    "Salmon",
+    "Sardines",
+    "Shrimp",
+    "Strawberries",
+    "Trout",
+    "Tuna",
+    "Turkey",
+    "Yogurt"
+]
+```
+
+

@@ -191,7 +191,7 @@ app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
   const iid = parseInt(req.params.iid);
   const s_price = parseFloat(req.params.s_price);
   connection.query(
-    "SELECT Ingredient.iid, postingImage, qty FROM freshsavings.AccountInventory, freshsavings.Ingredient WHERE Ingredient.iid = AccountInventory.iid AND AccountInventory.aid = ? AND AccountInventory.iid = ?",
+    "SELECT Ingredient.iid, postingImage, qty, expiring_in FROM freshsavings.AccountInventory, freshsavings.Ingredient WHERE Ingredient.iid = AccountInventory.iid AND AccountInventory.aid = ? AND AccountInventory.iid = ?",
     [aid, iid],
     (err, results) => {
       if (err) {
@@ -200,7 +200,7 @@ app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
         return;
       }
       console.log(results[0]);
-      const { postingImage, qty, ExpiryDate } = results[0];
+      const { postingImage, qty, expiring_in } = results[0];
 
       connection.query(
         "INSERT INTO freshsavings.Posting (iid, expiring_in, selling_price, selling_quantity, said, posting_status, image, ExpiryDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -237,7 +237,7 @@ app.post("/afterCheckOut/:aid/:arrPid", (req, res) => {
   console.log(arrPid);
   for (const pid of arrPid) {
     connection.query(
-      "SELECT Ingredient.iid, selling_quantity, emoji, expiring_in FROM freshsavings.Posting, freshsavings.Ingredient WHERE Posting.iid = Ingredient.iid AND Posting.pid = ?",
+      "SELECT Ingredient.iid, selling_quantity, expiring_in, emoji FROM freshsavings.Posting, freshsavings.Ingredient WHERE Posting.iid = Ingredient.iid AND Posting.pid = ?",
       [pid],
       (err, results) => {
         if (err) {
@@ -247,7 +247,7 @@ app.post("/afterCheckOut/:aid/:arrPid", (req, res) => {
         }
         console.log(results);
         console.log("This is aftercheckout");
-        const { iid, selling_quantity, ExpiryDate, emoji } = results[0];
+        const { iid, selling_quantity, expiring_in, emoji } = results[0];
 
         connection.query(
           "INSERT INTO freshsavings.AccountInventory (aid, iid, expiring_in, qty) VALUES (?, ?, ?, ?)",
@@ -436,10 +436,10 @@ app.get("/get-distance", async (req, res) => {
 });
 
 app.post("/add_inventory_item", (req, res) => {
-  const { aid, iid, expiring_in, qty, ExpiryDate } = req.body; // Extract data from the request body
+  const { aid, iid, expiring_in, qty } = req.body; // Extract data from the request body
 
   // Construct the SQL query to insert a new row into the AccountInventory table
-  const sql = `INSERT INTO freshsavings.AccountInventory (aid, iid, expiring_in, qty, ExpiryDate) VALUES ('${aid}', '${iid}', ${expiring_in}, ${qty}, '${ExpiryDate}')`;
+  const sql = `INSERT INTO freshsavings.AccountInventory (aid, iid, expiring_in, qty) VALUES ('${aid}', '${iid}', ${expiring_in}, ${qty}')`;
 
   // Execute the SQL query
   connection.query(sql, (err, result) => {
@@ -505,9 +505,8 @@ app.post("/insertNewInventoryItem", (req, res) => {
 
   // Perform the SQL update operation
   const AccountInventoryQuery =
-    "INSERT INTO freshsavings.AccountInventory(aid,iid, expiring_in, qty, ExpiryDate, emoji) VALUES (?, ?, 3, ?, ?, ?);";
-  const IngredientQuery =
-    "INSERT INTO freshsavings.Ingredient(iid, iname, icat) VALUES (?,?,?,?); ";
+    "INSERT INTO freshsavings.AccountInventory(aid, iid, expiring_in, qty, emoji) VALUES (?, ?, ?, ?, ?);";
+
 
   connection.beginTransaction((err) => {
     if (err) {
@@ -518,7 +517,7 @@ app.post("/insertNewInventoryItem", (req, res) => {
 
     connection.query(
       AccountInventoryQuery,
-      [aid, iid, expiring_in, qty, ExpiryDate],
+      [aid, iid, expiring_in, qty],
       (error, productResults) => {
         if (error) {
           return connection.rollback(() => {
@@ -526,33 +525,6 @@ app.post("/insertNewInventoryItem", (req, res) => {
             res.status(500).send("Internal Server Error");
           });
         }
-
-        connection.query(
-          IngredientQuery,
-          [iid, iname, icat],
-          (inventoryError) => {
-            if (inventoryError) {
-              return connection.rollback(() => {
-                console.error(
-                  "Error inserting data into inventory:",
-                  inventoryError
-                );
-                res.status(500).send("Internal Server Error");
-              });
-            }
-
-            connection.commit((commitError) => {
-              if (commitError) {
-                return connection.rollback(() => {
-                  console.error("Error committing transaction:", commitError);
-                  res.status(500).send("Internal Server Error");
-                });
-              }
-
-              res.status(200).send("Data inserted successfully");
-            });
-          }
-        );
       }
     );
   });
