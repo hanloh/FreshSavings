@@ -233,35 +233,59 @@ let successMessage = "";
               <!-- </div> -->
             </div>
 
-						<!-- Modal Opened -->
-						<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="openModalLabel"
-									aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h1 class="modal-title fs-5" :id="'ModalLabel' + idx">Listing Details</h1>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<label :for="'FormControlInput1' + idx" class="form-label">Selling Price</label>
-												<div class="input-group mb-3">
-													<span class="input-group-text" id="addon-wrappifng">$</span>
-													<input type="number" class="form-control" :id="'FormControlInput1' + idx" placeholder="3.00">
-												</div>
-												<div class="mb-3">
-													<label :for="'FormControlInput2' + idx" class="form-label">Upload photo of product</label>
-													<input type="file" class="form-control" :id="'FormControlInput2' + idx">
-												</div>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary" >Post</button>
-											</div>
-										</div>
-									</div>
-								</div>
-					</div>
-				</div>
-			</div>
+            <!-- Modal Opened -->
+            <div
+              class="modal fade"
+              id="openModal"
+              tabindex="-1"
+              aria-labelledby="openModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" :id="'ModalLabel' + idx">
+                      Listing Details
+                    </h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <label :for="'FormControlInput1' + idx" class="form-label"
+                      >Selling Price</label
+                    >
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="addon-wrappifng"
+                        >$</span
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        :id="'FormControlInput1' + idx"
+                        placeholder="3.00" />
+                    </div>
+                    <div class="mb-3">
+                      <label :for="'FormControlInput2' + idx" class="form-label"
+                        >Upload photo of product</label
+                      >
+                      <input
+                        type="file"
+                        class="form-control"
+                        :id="'FormControlInput2' + idx" />
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Post</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- <div class="projects" name="projects">
         <template v-for="(item, idx) in sortedArray" :key="item.iname">
@@ -436,22 +460,36 @@ export default {
       selectedCategory: "Fruits",
       selectedEmoji: "",
 
-			// Hard-Coded
-			categories: [
-				{ categoryName: "All", imgLink: "kitchen.png" },
-				// { categoryName: "Due Soon", imgLink: "duesoon.png" },
-				// { categoryName: "Past Due", imgLink: "pastdue.png" },
-				{ categoryName: "Dairy", imgLink: "milk.png" },
-				{ categoryName: "Fish", imgLink: "fish.png" },
-				{ categoryName: "Fruits", imgLink: "fruits.png" },
-				{ categoryName: "Meats", imgLink: "barbecue.png" },
-			],
-			emojis: [
-				{ dairy: ['🧀', '🧈', '🥛','🍼'] },
-				{ fish: ['🐟','🐠'] },
-				{ fruit: ['🍇', '🍊', '🍌', '🍍', '🍎', '🍓', '🫐', '🥝',] },
-				{ meat: ['🥩', '🐄', '🐖', '🐓', '🐏','🦃','🦆','🐔','🦀', '🦞', '🦐'] },
-			],
+      // Hard-Coded
+      categories: [
+        { categoryName: "All", imgLink: "kitchen.png" },
+        // { categoryName: "Due Soon", imgLink: "duesoon.png" },
+        // { categoryName: "Past Due", imgLink: "pastdue.png" },
+        { categoryName: "Dairy", imgLink: "milk.png" },
+        { categoryName: "Fish", imgLink: "fish.png" },
+        { categoryName: "Fruits", imgLink: "fruits.png" },
+        { categoryName: "Meats", imgLink: "barbecue.png" },
+      ],
+      emojis: [
+        { dairy: ["🧀", "🧈", "🥛", "🍼"] },
+        { fish: ["🐟", "🐠"] },
+        { fruit: ["🍇", "🍊", "🍌", "🍍", "🍎", "🍓", "🫐", "🥝"] },
+        {
+          meat: [
+            "🥩",
+            "🐄",
+            "🐖",
+            "🐓",
+            "🐏",
+            "🦃",
+            "🦆",
+            "🐔",
+            "🦀",
+            "🦞",
+            "🦐",
+          ],
+        },
+      ],
 
       // DO NOT DELETE THIS
       cards: [
@@ -605,36 +643,44 @@ export default {
             // Now you can use these variables to perform any necessary logic or actions
             // For example, you can use them in your axios POST request
 
-      try {
-        const postResponse = await axios.post('http://localhost:3000/add_inventory_item', {
-          aid: useAccountStorage().aid,
-          iid: ingredientId,
-          qty: itemQuantity,
-          expiring_in: daysDifference, // Store the calculated difference in days
-          ExpiryDate: expiryDate,
-          // other data properties as needed
+            try {
+              const postResponse = await axios.post(
+                "http://localhost:3000/add_inventory_item",
+                {
+                  aid: useAccountStorage().aid,
+                  iid: ingredientId,
+                  qty: itemQuantity,
+                  expiring_in: daysDifference, // Store the calculated difference in days
+                  ExpiryDate: expiryDate,
+                  // other data properties as needed
+                }
+              );
+
+              // Show success message and close the form
+              this.successMessage = "Item added successfully!";
+
+              setTimeout(() => {
+                this.successMessage = "";
+              }, 2000); // Hides the success message after 2 seconds
+            } catch (error) {
+              // Handle errors
+              console.error(
+                "Error occurred while adding inventory item:",
+                error
+              );
+            }
+          } else {
+            console.error(
+              "Ingredient ID not found for the provided name:",
+              itemName
+            );
+          }
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error("Error retrieving ingredient ID:", error);
         });
-
-        // Show success message and close the form
-        this.successMessage = 'Item added successfully!';
-
-        setTimeout(() => {
-          this.successMessage = '';
-        }, 2000); // Hides the success message after 2 seconds
-      } catch (error) {
-        // Handle errors
-        console.error('Error occurred while adding inventory item:', error);
-      }
-    } else {
-      console.error('Ingredient ID not found for the provided name:', itemName);
-    }
-  })
-  .catch(error => {
-    // Handle errors
-    console.error('Error retrieving ingredient ID:', error);
-  });
-},
-
+    },
 
     imageUrl(img) {
       return require(`@/assets/img/${img}`);
@@ -643,40 +689,38 @@ export default {
       this.currentFilter = filter;
     },
 
-		computedItemStyle(obj) {
-			let style = {};
+    computedItemStyle(obj) {
+      let style = {};
 
-			if ('🧀🧈🍋🍌🥔🌽'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #FBF8CC 70%, white)';
-			} else if ('🐟🐠'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #8EECF5 70%, white)';
-			} else if ('🦑🍇🫐🍆'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #CFBAF0 70%, white)';
-			} else if ('🍈🍏🍐🥝🫒🥑🫑🥒🥬🥦'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #b9fbc0 70%, white)';
-			} else if ('🦀🦞🦐🍉🍎🍒🍓🍅'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #ffb5a7 , 70%, white)';
-			} else if ('🍍🍗🍑🥕'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #fec89a, 70%, white)';
-			} else if ('🥥🍖🥓🐓'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #e2cfc4, 70%, white)';
-			} else if ('🐖'.includes(obj.emoji)) {
-				style.background = 'linear-gradient(to top left, #ffacc5, 70%, white)';
-			}
-			else {
-				style.background = 'linear-gradient(to top left, #F8F6F4, 70%, white)';
-			}
+      if ("🧀🧈🍋🍌🥔🌽".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #FBF8CC 70%, white)";
+      } else if ("🐟🐠".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #8EECF5 70%, white)";
+      } else if ("🦑🍇🫐🍆".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #CFBAF0 70%, white)";
+      } else if ("🍈🍏🍐🥝🫒🥑🫑🥒🥬🥦".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #b9fbc0 70%, white)";
+      } else if ("🦀🦞🦐🍉🍎🍒🍓🍅".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #ffb5a7 , 70%, white)";
+      } else if ("🍍🍗🍑🥕".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #fec89a, 70%, white)";
+      } else if ("🥥🍖🥓🐓".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #e2cfc4, 70%, white)";
+      } else if ("🐖".includes(obj.emoji)) {
+        style.background = "linear-gradient(to top left, #ffacc5, 70%, white)";
+      } else {
+        style.background = "linear-gradient(to top left, #F8F6F4, 70%, white)";
+      }
 
-			// if (obj.expiring_in <= 2 && obj.expiring_in >= 0) {
-			// 	style.border = 'solid 5px orange';
-			// 	style.borderRadius = '1rem';
-			// }
-			// else if (obj.expiring_in < 0) {
-			// 	style.border = 'solid 5px orange';
-			// 	style.borderRadius = '1rem';
-			// }
-
-		},
+      // if (obj.expiring_in <= 2 && obj.expiring_in >= 0) {
+      // 	style.border = 'solid 5px orange';
+      // 	style.borderRadius = '1rem';
+      // }
+      // else if (obj.expiring_in < 0) {
+      // 	style.border = 'solid 5px orange';
+      // 	style.borderRadius = '1rem';
+      // }
+    },
 
     formAction(action) {
       if (action == "open") {
@@ -692,19 +736,18 @@ export default {
       }
     },
 
-		modifyItemQty(item, operator) {
-			if (operator == 'add') {
-				item.qty += number;
-				// check again
-			} else if (operator == 'minus' && item.qty > 0) {
-				item.qty -= number;
-				// check again
-			}
-			if (item.qty == 0) {
-				this.removeItem();
-			}
-
-		},
+    modifyItemQty(item, operator) {
+      if (operator == "add") {
+        item.qty += number;
+        // check again
+      } else if (operator == "minus" && item.qty > 0) {
+        item.qty -= number;
+        // check again
+      }
+      if (item.qty == 0) {
+        this.removeItem();
+      }
+    },
 
     // TO DO: remove this card information from the Table 'AccountInventory' completely
     removeItem() {
@@ -771,8 +814,8 @@ export default {
   align-items: center;
 }
 .btn {
-	color: black;
-	border: none;
+  color: black;
+  border: none;
 }
 .filter {
   padding: 6px 6px;
@@ -799,8 +842,6 @@ export default {
   justify-content: center;
 }
 
-
-
 .projects-enter {
   transform: scale(0.5) translatey(-80px);
   opacity: 0;
@@ -810,7 +851,6 @@ export default {
   transform: translatey(30px);
   opacity: 0;
 }
-
 
 .projects-leave-active {
   position: absolute;
@@ -861,25 +901,25 @@ export default {
 }
 
 .project body {
-	z-index: 3;
+  z-index: 3;
 }
 
 .btn-subtle {
-    border: none;
-    transition: background-color 0.3s;
-  }
+  border: none;
+  transition: background-color 0.3s;
+}
 
-  .btn-subtle:hover {
-    cursor: pointer;
-  }
+.btn-subtle:hover {
+  cursor: pointer;
+}
 
-  .btn-danger-subtle:hover {
-    background-color: #dc3545; /* Change to your desired hover color for Remove */
-  }
+.btn-danger-subtle:hover {
+  background-color: #dc3545; /* Change to your desired hover color for Remove */
+}
 
-  .btn-success-subtle:hover {
-    background-color: #28a745; /* Change to your desired hover color for Sell */
-  }
+.btn-success-subtle:hover {
+  background-color: #28a745; /* Change to your desired hover color for Sell */
+}
 
 .project {
   transition: all 0.35s ease-in-out;
