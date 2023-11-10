@@ -507,7 +507,6 @@ app.post("/insertNewInventoryItem", (req, res) => {
   const AccountInventoryQuery =
     "INSERT INTO freshsavings.AccountInventory(aid, iid, expiring_in, qty, emoji) VALUES (?, ?, ?, ?, ?);";
 
-
   connection.beginTransaction((err) => {
     if (err) {
       console.error("Error starting transaction:", err);
@@ -557,7 +556,7 @@ app.get("/get_inventory_and_images/:userid", (req, res) => {
   const userid = parseInt(req.params.userid);
 
   connection.query(
-    `SELECT ai.iid, ai.qty, i.iname, ai.expiring_in, i.postingImage FROM freshsavings.AccountInventory ai, freshsavings.Ingredient i WHERE i.iid = ai.iid and ai.aid = ?;`,
+    `SELECT ai.iid, ai.qty, i.iname, ai.expiring_in, i.postingImage, i.icat FROM freshsavings.AccountInventory ai, freshsavings.Ingredient i WHERE i.iid = ai.iid and ai.aid = ?;`,
     [userid],
     (err, results) => {
       if (err) {
