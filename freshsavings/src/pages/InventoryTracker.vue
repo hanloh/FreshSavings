@@ -213,11 +213,11 @@ let successMessage = "";
             </div>
             <div class="btn-group w-100 mt-2">
               <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
-              <button
+			<button
                 type="button"
                 class="btn bg-success-subtle"
                 style="display: block; width: 100%"
-                @click="removePost()">
+                @click="removePost(item.iid, item.expiring_in)">
                 Remove
               </button>
               <!-- </div> -->
@@ -227,8 +227,10 @@ let successMessage = "";
                 class="btn btn-success"
                 style="display: block; width: 100%"
                 data-bs-toggle="modal"
-                data-bs-target="#openModal">
+                data-bs-target="#openModal"
+				@click="changeItemChosen(item.iid)">
                 Sell
+				
               </button>
               <!-- </div> -->
             </div>
@@ -270,14 +272,21 @@ let successMessage = "";
                       <label :for="'FormControlInput2' + idx" class="form-label"
                         >Upload photo of product</label
                       >
-                      <input
+                      <input disabled
                         type="file"
                         class="form-control"
                         :id="'FormControlInput2' + idx" />
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Post</button>
+                    <a href="./inventory-tracker">
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click="posted(price)">
+                            Post
+                          </button>
+                        </a>
                   </div>
                 </div>
               </div>
@@ -545,6 +554,24 @@ export default {
     },
   },
   methods: {
+	removePost(iid, expiring_in){
+		
+        useAccountStorage().cart = [];
+         axios.post(`http://localhost:3000/DeleteItem/${useAccountStorage().aid}/${iid}/${expiring_in}`).then((response) => {
+          this.items = response.data; // Store the fetched inventory items in the data property
+          console.log("Inventory items:", this.items);
+        })
+        .catch((error) => {
+          console.error(
+            "Error occurred while fetching inventory items:",
+            error
+          );
+        });
+          
+        
+          
+    },
+	
     changeItemChosen(newiid) {
       this.is_selected = newiid;
       console.log("new me");

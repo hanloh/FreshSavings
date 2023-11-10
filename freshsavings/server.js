@@ -203,9 +203,8 @@ app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
       const { postingImage, qty, expiring_in } = results[0];
 
       connection.query(
-        "INSERT INTO freshsavings.Posting (iid, expiring_in, selling_price, selling_quantity, said, posting_status, image, ExpiryDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        [iid, 1, s_price, qty, aid, "Active", postingImage, ExpiryDate],
-
+        "INSERT INTO freshsavings.Posting (iid, expiring_in, selling_price, selling_quantity, said, posting_status, image) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [iid, expiring_in, s_price, qty, aid, 'Active', postingImage],
         (err, results) => {
           if (err) {
             console.error("Error querying the database:", err);
@@ -506,6 +505,7 @@ app.post("/insertNewInventoryItem", (req, res) => {
   // Perform the SQL update operation
   const AccountInventoryQuery =
     "INSERT INTO freshsavings.AccountInventory(aid, iid, expiring_in, qty, emoji) VALUES (?, ?, ?, ?, ?);";
+  
 
   connection.beginTransaction((err) => {
     if (err) {
@@ -553,17 +553,177 @@ app.listen(port, () => {
 });
 
 app.get("/get_inventory_and_images/:userid", (req, res) => {
-  const userid = parseInt(req.params.userid);
+    const userid = parseInt(req.params.userid);
+  
+    connection.query(
+      `SELECT ai.iid, ai.qty, i.iname, ai.expiring_in, i.postingImage, i.icat FROM freshsavings.AccountInventory ai, freshsavings.Ingredient i WHERE i.iid = ai.iid and ai.aid = ?;`,
+      [userid],
+      (err, results) => {
+        if (err) {
+          console.error("Error querying the database:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+        }
+        res.json(results);
+      }
+    );
+  });
 
+
+
+
+app.post("/DecreaseQuantity/:aid/:iid/:expiring_in"), (req, res) => {
+  const aid = parseInt(req.params.aid);
+  const iid = parseInt(req.params.iid);
+  const expiring_in = parseInt(req.params.expiring_in);
   connection.query(
-    `SELECT ai.iid, ai.qty, i.iname, ai.expiring_in, i.postingImage, i.icat FROM freshsavings.AccountInventory ai, freshsavings.Ingredient i WHERE i.iid = ai.iid and ai.aid = ?;`,
-    [userid],
+    "SELECT qty FROM freshsavings.AccountInventory WHERE AccountInventory.aid = ? AND AccountInventory.iid = ? AND AccountInventory.expiring_in = ?",
+    [aid, iid, expiring_in],
     (err, results) => {
       if (err) {
         console.error("Error querying the database:", err);
         res.status(500).json({ error: "Internal Server Error" });
+        return;
       }
-      res.json(results);
+      
+      const {qty} = results[0];
+      let new_qty = qty - 1
+      if(new_qty == 0){
+        connection.query(
+          "DELETE FROM freshsavings.AccountInventory WHERE AccountInventory.aid = ? AND AccountInventory.iid = ? AND AccountInventory.expiring_in = ?",
+          [aid, iid, expiring_in],
+          (err, results) => {
+            if (err) {
+              console.error("Error querying the database:", err);
+              res.status(500).json({ error: "Internal Server Error" });
+              return;
+            }
+          }
+        );
+      }
+      else{
+      connection.query(
+        "UPDATE freshsavings.AccountInventory SET qty = ? WHERE AccountInventory.aid = ? AND AccountInventory.iid = ? AND AccountInventory.expiring_in = ?",
+        [new_qty, aid, iid, expiring_in],
+        (err, results) => {
+          if (err) {
+            console.error("Error querying the database:", err);
+            res.status(500).json({ error: "Internal Server Error" });
+            return;
+          }
+        }
+      );
+      }
+    }
+  );
+}
+app.post("/IncreaseQuantity/:aid/:iid/:expiring_in"), (req, res) => {
+  const aid = parseInt(req.params.aid);
+  const iid = parseInt(req.params.iid);
+  const expiring_in = parseInt(req.params.expiring_in);
+  connection.query(
+    "SELECT qty FROM freshsavings.AccountInventory WHERE AccountInventory.aid = ? AND AccountInventory.iid = ? AND AccountInventory.expiring_in = ?",
+    [aid, iid, expiring_in],
+    (err, results) => {
+      if (err) {
+        console.error("Error querying the database:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+        return;
+      }
+      
+      const {qty} = results[0];
+      let new_qty = qty + 1
+
+      connection.query(
+        "UPDATE freshsavings.AccountInventory SET qty = ? WHERE AccountInventory.aid = ? AND AccountInventory.iid = ? AND AccountInventory.expiring_in = ?",
+        [new_qty, aid, iid, expiring_in],
+        (err, results) => {
+          if (err) {
+            console.error("Error querying the database:", err);
+            res.status(500).json({ error: "Internal Server Error" });
+            return;
+          }
+        }
+      );
+    }
+  );
+}
+
+app.post("/DeleteItem/:aid/:iid/:expiring_in", (req, res) => {
+  const aid = parseInt(req.params.aid);
+  const iid = parseInt(req.params.iid);
+  const expiring_in = parseInt(req.params.expiring_in);
+connection.query(
+  "DELETE FROM freshsavings.AccountInventory WHERE AccountInventory.aid = ? and AccountInventory.iid = ? and AccountInventory.expiring_in = ?",
+  [aid, iid, expiring_in],
+  (err, results) => {
+    if (err) {
+      console.error("Error querying the database:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+  }
+)
+})
+
+app.post("/AddNewItem/:aid/:iid/:expiring_in/:qty", (req, res) => {
+  const aid = parseInt(req.params.aid);
+  const iid = parseInt(req.params.iid);
+  const expiring_in = parseInt(req.params.expiring_in);
+  const qty = parseInt(req.params.qty);
+connection.query(
+  "INSERT INTO freshsavings.AccountInventory (aid, iid, expiring_in, qty) VALUES (?, ?, ?, ?)",
+  [aid, iid, expiring_in, qty],
+  (err, results) => {
+    if (err) {
+      console.error("Error querying the database:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+  }
+)
+})
+
+
+
+app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
+  const aid = parseInt(req.params.aid);
+  const iid = parseInt(req.params.iid);
+  const s_price = parseFloat(req.params.s_price);
+  connection.query(
+    "SELECT Ingredient.iid, postingImage, qty, expiring_in FROM freshsavings.AccountInventory, freshsavings.Ingredient WHERE Ingredient.iid = AccountInventory.iid AND AccountInventory.aid = ? AND AccountInventory.iid = ?",
+    [aid, iid],
+    (err, results) => {
+      if (err) {
+        console.error("Error querying the database:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+        return;
+      }
+      console.log(results[0]);
+      const { postingImage, qty, expiring_in } = results[0];
+
+      connection.query(
+        "INSERT INTO freshsavings.Posting (iid, expiring_in, selling_price, selling_quantity, said, posting_status, image) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [iid, expiring_in, s_price, qty, aid, 'Active', postingImage],
+        (err, results) => {
+          if (err) {
+            console.error("Error querying the database:", err);
+            res.status(500).json({ error: "Internal Server Error" });
+            return;
+          }
+          connection.query(
+            "DELETE FROM freshsavings.AccountInventory where aid = ? and iid = ?",
+            [aid, iid],
+
+            (err, results) => {
+              if (err) {
+                console.error("Error querying the database:", err);
+                res.status(500).json({ error: "Internal Server Error" });
+                return;
+              }
+            }
+          );
+        }
+      );
     }
   );
 });
