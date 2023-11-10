@@ -104,7 +104,9 @@ import { Icon } from "@iconify/vue";
                   class="rounded-4 p-3 d-flex flex-column justify-content-between shadow h-100">
                   <div
                     class="d-flex justify-content-between align-items-center">
-                    <div class="fs-1">{{ cards[i].icon }}</div>
+                    <div style="font-size: 72px" class="text-start">
+                      {{ cards[i].icon }}
+                    </div>
                     <div
                       class="p-2 rounded-circle lh-1 fs-5 fw-bold d-flex justify-content-center align-items-center inventory-qty"
                       style="color: black">
@@ -156,7 +158,9 @@ import { Icon } from "@iconify/vue";
                   class="rounded-4 p-3 d-flex flex-column justify-content-between shadow h-100">
                   <div
                     class="d-flex justify-content-between align-items-center">
-                    <div class="fs-1">{{ cards[i + 6].icon }}</div>
+                    <div style="font-size: 72px" class="text-start">
+                      {{ cards[i + 6].icon }}
+                    </div>
                     <div
                       class="p-2 rounded-circle lh-1 fs-5 fw-bold d-flex justify-content-center align-items-center inventory-qty"
                       style="color: black">

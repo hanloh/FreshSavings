@@ -159,38 +159,46 @@ let successMessage = "";
 
     <!-- Product card  -->
 
-    <div class="row justify-content-center container-fluid mt-5">
+    <div
+      class="row row-cols-2 row-cols-lg-3 justify-content-center container-fluid mt-5">
       <!-- example inventory card -->
       <div
-        class="col-4 py-3"
+        class="col py-3"
         v-for="(item, idx) in sortedArray"
         :key="item.iname"
         style="height: 360px; width: 360px">
         <div
-          :style="{ background: computedItemStyle(item) }"
-          class="rounded-4 p-3 d-flex flex-column justify-content-between shadow h-100">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="fs-1">{{ item.emoji }}</div>
-            <div class="d-flex gap-2 align-items-center">
-              <button
-                type="button"
-                class="btn btn-outline-light rounded-circle d-flex align-items-center"
-                style="height: 32px; width: 32px"
-                @click="modifyItemQty(item, 'minus')">
-                -
-              </button>
-              <div
-                class="p-2 rounded-circle lh-1 fs-4 fw-bold d-flex justify-content-center align-items-center inventory-qty">
-                <!-- :style="{ color: card.qty_color }" -->
-                x{{ item.qty }}
+          class="rounded-4 p-3 d-flex flex-column justify-content-between shadow h-100 bg-white">
+          <div class="d-flex justify-content-between flex-grow-1">
+            <img
+              :src="require('@/assets/img/' + item.postingImage)"
+              class="img-fluid object-fit-contain"
+              height="180"
+              width="180" />
+
+            <div class="d-flex justify-content-between align-items-start">
+              <!-- <div class="fs-1">{{ item.emoji }}</div> -->
+              <div class="d-flex gap-2 align-items-center">
+                <button
+                  type="button"
+                  class="btn btn-outline-light rounded-circle d-flex align-items-center"
+                  style="height: 32px; width: 32px"
+                  @click="modifyItemQty(item, 'minus')">
+                  -
+                </button>
+                <div
+                  class="p-2 rounded-circle lh-1 fs-4 fw-bold d-flex justify-content-center align-items-center inventory-qty">
+                  <!-- :style="{ color: card.qty_color }" -->
+                  x{{ item.qty }}
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-outline-light rounded-circle d-flex align-items-center"
+                  style="height: 32px; width: 32px"
+                  @click="modifyItemQty(item, 'add')">
+                  +
+                </button>
               </div>
-              <button
-                type="button"
-                class="btn btn-outline-light rounded-circle d-flex align-items-center"
-                style="height: 32px; width: 32px"
-                @click="modifyItemQty(item, 'add')">
-                +
-              </button>
             </div>
           </div>
           <div>
@@ -198,7 +206,10 @@ let successMessage = "";
               {{ item.iname }}
             </div>
             <div class="text-start text-secondary-emphasis">
-              Fresh for {{ item.expiring_in }} more days
+              Fresh for {{ item.expiring_in }} more day<span
+                v-if="item.expiring_in > 1"
+                >s</span
+              >
             </div>
             <div class="btn-group w-100 mt-2">
               <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
@@ -274,8 +285,9 @@ let successMessage = "";
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="projects" name="projects">
+    <!-- <div class="projects" name="projects">
         <template v-for="(item, idx) in sortedArray" :key="item.iname">
           <TransitionGroup
             class="project"
@@ -329,11 +341,11 @@ let successMessage = "";
                     }}</span>
                     days
                   </p>
-                </div>
+                </div> -->
 
-                <!-- Modal  -->
-                <!-- Button trigger modal -->
-                <div class="d-flex">
+    <!-- Modal  -->
+    <!-- Button trigger modal -->
+    <!-- <div class="d-flex">
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <button
                       type="button"
@@ -354,10 +366,10 @@ let successMessage = "";
                       Sell
                     </button>
                   </div>
-                </div>
+                </div> -->
 
-                <!-- Modal Opened -->
-                <div
+    <!-- Modal Opened -->
+    <!-- <div
                   class="modal fade"
                   :id="'openModal' + idx"
                   tabindex="-1"
@@ -421,7 +433,7 @@ let successMessage = "";
           </TransitionGroup>
         </template>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -491,6 +503,7 @@ export default {
           qty_color: "rgb(160, 220, 187)",
         },
       ],
+      allIngredientsAndImages: [],
     };
   },
   created() {
@@ -537,6 +550,7 @@ export default {
       console.log("new me");
       console.log(this.is_selected);
     },
+
     checkLoginStatus() {
       const sessionData = JSON.parse(localStorage.getItem("session"));
       if (sessionData && sessionData.user && sessionData.user.email) {
@@ -546,11 +560,12 @@ export default {
         this.isLoggedIn = false;
       }
     },
+
     fetchItems() {
       // Replace the URL with the appropriate route for getting user inventory items
       const userId = useAccountStorage().aid; // Replace with the actual user ID
       axios
-        .get(`http://localhost:3000/get_user_inventory_items/${userId}`)
+        .get(`http://localhost:3000/get_inventory_and_images/${userId}`)
         .then((response) => {
           this.items = response.data; // Store the fetched inventory items in the data property
           console.log("Inventory items:", this.items);
@@ -562,6 +577,22 @@ export default {
           );
         });
     },
+    // fetchItems() {
+    //   // Replace the URL with the appropriate route for getting user inventory items
+    //   const userId = useAccountStorage().aid; // Replace with the actual user ID
+    //   axios
+    //     .get(`http://localhost:3000/get_user_inventory_items/${userId}`)
+    //     .then((response) => {
+    //       this.items = response.data; // Store the fetched inventory items in the data property
+    //       console.log("Inventory items:", this.items);
+    //     })
+    //     .catch((error) => {
+    //       console.error(
+    //         "Error occurred while fetching inventory items:",
+    //         error
+    //       );
+    //     });
+    // },
     getIngredientIdByName(ingredientName) {
       // Make a GET request to the server-side endpoint to retrieve all ingredients
       axios
@@ -739,6 +770,33 @@ export default {
         console.error("Error:", error);
       }
     },
+
+    // to store the ingredients and their images into this.allIngredientsAndImages
+    getAllIngredientImages() {
+      const userId = useAccountStorage().aid; // Replace with the actual user ID
+      axios
+        .get(`http://localhost:3000/get_all_ingredients/`)
+        .then((response) => {
+          // this.items = response.data; // Store the fetched inventory items in the data property
+          console.log("Inventory items:", this.items);
+          for (ingredient in response.data) {
+            this.allIngredientsAndImages.push({
+              iid: ingredient.iid,
+              iname: ingredient.iname,
+              image: ingredient.postingImage,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "Error occurred while fetching inventory items:",
+            error
+          );
+        });
+    },
+  },
+  mounted() {
+    this.getAllIngredientImages();
   },
 };
 </script>

@@ -175,8 +175,6 @@ app.get("/get_user_inventory_items/:userid", (req, res) => {
   // aid of currently logged-in user
   connection.query(
     // TODO: make query more specific after finalising the data to fetch
-    "SELECT a.aid, a.iid, i.iname, a.qty, a.expiring_in, a.ExpiryDate, i.icat, i.emoji FROM freshsavings.AccountInventory a JOIN freshsavings.Ingredient i ON a.iid = i.iid WHERE a.aid = ?;",
-    // TODO: make query more specific after finalising the data to fetch
     "SELECT a.aid, a.iid, i.iname, a.qty, a.expiring_in, i.icat, i.emoji FROM freshsavings.AccountInventory a JOIN freshsavings.Ingredient i ON a.iid = i.iid WHERE a.aid = ?;",
     [userid],
     (err, results) => {
@@ -206,7 +204,7 @@ app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
 
       connection.query(
         "INSERT INTO freshsavings.Posting (iid, expiring_in, selling_price, selling_quantity, said, posting_status, image, ExpiryDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        [iid, 1, s_price, qty, aid, 'Active', postingImage, ExpiryDate],
+        [iid, 1, s_price, qty, aid, "Active", postingImage, ExpiryDate],
 
         (err, results) => {
           if (err) {
@@ -583,10 +581,12 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
-app.get("/inventory_and_images", (req, res) => {
+app.get("/get_inventory_and_images/:userid", (req, res) => {
+  const userid = parseInt(req.params.userid);
+
   connection.query(
-    `SELECT ai.aid, ai.iid, ai.qty, i.postingImage FROM freshsavings.AccountInventory ai, freshsavings.Ingredient i WHERE aid = ?`,
-    [aid],
+    `SELECT ai.iid, ai.qty, i.iname, ai.expiring_in, i.postingImage FROM freshsavings.AccountInventory ai, freshsavings.Ingredient i WHERE i.iid = ai.iid and ai.aid = ?;`,
+    [userid],
     (err, results) => {
       if (err) {
         console.error("Error querying the database:", err);
