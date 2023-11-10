@@ -419,7 +419,7 @@ app.get("/get-distance", async (req, res) => {
     const destLat = req.query.destLat;
     const destLng = req.query.destLng;
     const units = req.query.units;
-    const apiKey = req.query.apiKey;
+    const apiKey = "AIzaSyBaK6fapQE5NMhxj0ZZdKcQsn9o1xhZf3M";
 
     // Construct the API URL using latitude and longitude
     const apiUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${originLat},${originLng}&destinations=${destLat},${destLng}&units=${units}&key=${apiKey}`;
