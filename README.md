@@ -77,34 +77,16 @@ npm run build
 ```sh
 npm run lint
 ```
+# Accessing application
 
 ## Log in with these credentials
 You may log into our pages using any of the following credentials.
 ```sh
 credentials_list = [
-    "john@gmail.com,password1",
-    "jane@gmail.com,password2",
-    "michael@gmail.com,password3",
-    "emily@gmail.com,password4",
-    "will@gmail.com,password5",
-    "olivia@gmail.com,password6",
-    "james@gmail.com,password7",
-    "sophia@gmail.com,password8",
-    "liam@gmail.com,password9",
-    "ava@gmail.com,password10",
-    "ben@gmail.com,password11",
-    "mia@gmail.com,password12",
-    "ethan@gmail.com,password13",
-    "isabella@gmail.com,password14",
-    "daniel@gmail.com,password15",
-    "ava2@gmail.com,password16",
-    "alex@gmail.com,password17",
-    "olivia2@gmail.com,password18",
-    "sophia2@gmail.com,password19",
-    "gloria@gmail.com,password20",
-    "wdawdwd@gmail.com,oskfsokefefsf",
-    "asokfaskof@gmail.com,ffewfsefsef",
-    "poppy@gmail.com,password123"
+    ("john@gmail.com", "password1"),
+    ("jane@gmail.com", "password2"),
+    ("michael@gmail.com", "password3"),
+    ("emily@gmail.com", "password4"),
 ]
 ```
 
