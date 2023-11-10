@@ -38,6 +38,8 @@ We made use of the `12-point grid system` to help make our application responsiv
 # API used
 We incoporated [GoogleMaps API](https://developers.google.com/maps) into the project.
 
+This API can be found in our Checkout page under the accordian panel titled 'Display Locations on  Maps'. The map generated serves as a visual indication of the distance between the buyer and the seller, and allows the buyer to decide on a self pickup or delivery option! 
+
 # Beyond the Lab
 
 ## Github
