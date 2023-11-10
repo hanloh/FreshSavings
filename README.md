@@ -75,10 +75,16 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
+### Download dotenv file into the freshsavings directory
 ```sh
-npm run lint
+npm install dotenv
 ```
+
+### Start a Node.js server
+```sh
+node server.js 
+```
+
 # Accessing application
 
 ## Log in with these credentials
