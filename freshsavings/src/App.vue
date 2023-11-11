@@ -6,7 +6,6 @@
     <NavBar v-if="!this.$route.meta.hideNavBar" />
     <RouterView />
   </main>
-  <!-- <Footer v-if="!this.$route.meta.hideNavBar" /> -->
   <FooterComponent v-if="!this.$route.meta.hideNavBar" />
 </template>
 
@@ -46,7 +45,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 75px; */
   background-color: #FAF9F6;
 }
 

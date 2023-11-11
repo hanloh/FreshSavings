@@ -1,14 +1,14 @@
 <script setup>
 import axios from 'axios';
-import GSignInButton from 'vue-google-signin-button'
-import getGoogleUrl from '../auth/getGoogleUrl.js';
+// import GSignInButton from 'vue-google-signin-button'
+// import getGoogleUrl from '../auth/getGoogleUrl.js';
 import { ref, onMounted } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import router from '../router/index.js';
 import { useAccountStorage } from '../main.js';
 const accountStorage = useAccountStorage();
 
-const from = ref('default'); // Define the from variable here
+const from = ref('default');
 
 const handleSignUp = async () => {
   errorMessage.value = '';
@@ -79,10 +79,10 @@ inputs.forEach(input => {
 });
 
 
-	const userSelection = 'example'; // Assume this value comes from some user action
+	const userSelection = 'example';
   from.value = userSelection;
   const script = document.createElement('script');
-  script.src = 'https://apis.google.com/js/api:client.js';
+//   script.src = 'https://apis.google.com/js/api:client.js';
   document.head.appendChild(script);
 });
 </script>
@@ -133,14 +133,14 @@ inputs.forEach(input => {
 		<div class="line-text">or</div>
 		<div class="social-container">
 			<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-			<!-- <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a> -->
-			<a :href="getGoogleUrl(from)" class="social"
+			<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+			<!-- <a :href="getGoogleUrl(from)" class="social"
 			:params="googleSignInParams"
 				@success="onSignInSuccess"
-				@error="onSignInError">
+				@error="onSignInError"> -->
 				<!-- Sign in with Google -->
 			
-			<i class="fab fa-google-plus-g"></i></a>
+			<!-- <i class="fab fa-google-plus-g"></i></a> -->
 
       
 			<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
@@ -164,28 +164,28 @@ inputs.forEach(input => {
 export default {
   name: 'SignUp',
   components: {
-    GSignInButton,
+    // GSignInButton,
   },
   setup() {
-    const googleSignInParams = {
-      clientId: process.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
-    };
+    // const googleSignInParams = {
+    //   clientId: process.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
+    // };
 
-    const onSignInSuccess = (googleUser) => {
-      const profile = googleUser.getBasicProfile(); // etc etc
-    };
+    // const onSignInSuccess = (googleUser) => {
+    //   const profile = googleUser.getBasicProfile(); // etc etc
+    // };
 
-    const onSignInError = (error) => {
-      console.log('OH NOES', error);
-    };
+    // const onSignInError = (error) => {
+    //   console.log('OH NOES', error);
+    // };
 
 
     return {
-      googleSignInParams,
-      onSignInSuccess,
-      onSignInError,
+    //   googleSignInParams,
+    //   onSignInSuccess,
+    //   onSignInError,
       from,
-      getGoogleUrl,
+    //   getGoogleUrl,
 	handleSignUp
     };
   },
@@ -199,18 +199,17 @@ export default {
 .error-message {
   color: red;
   display: inline-block;
-  margin-left: 10px; /* Adjust the margin as needed */
-  font-size: 14px; /* Adjust the font size as needed */
+  margin-left: 10px;
+  font-size: 14px;
 }
-.g-signin-button {
-  /* This is where you control how the button looks. Be creative! */
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 3px;
-  background-color: #3c82f7;
-  color: #fff;
-  box-shadow: 0 3px 0 #0f69ff;
-}
+// .g-signin-button {
+//   display: inline-block;
+//   padding: 4px 8px;
+//   border-radius: 3px;
+//   background-color: #3c82f7;
+//   color: #fff;
+//   box-shadow: 0 3px 0 #0f69ff;
+// }
 
 *{
 	padding: 0;
@@ -221,17 +220,17 @@ export default {
 body{
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
-    margin: 0; /* Reset margin */
-    padding: 0; /* Reset padding */
+    margin: 0;
+    padding: 0;
 }
 .text {
-  display: flex; /* Set the display to flex */
-  align-items: center; /* Center items vertically */
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 .create-account-link {
-  text-decoration: underline; /* Apply underline to the link */
-  color: #32be8f; /* Change link color if needed */
+  text-decoration: underline;
+  color: #32be8f;
   padding-left: 2px;
 }
 .create {
@@ -292,24 +291,19 @@ a:hover{
     width: 100vw;
     height: 100vh;
     display: grid;
-    place-items: center; /* Center the content both horizontally and vertically */
+    place-items: center;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 15rem;
     padding: 0 1rem;
 }
 
-
-
 .login-content {
     display: flex;
-    justify-content: center; /* Change to center to horizontally center the content */
+    justify-content: center;
     align-items: center;
     text-align: center;
-    width: 100%; /* Ensure the content takes up the full width of the parent container */
+    width: 100%;
 }
-
-
-
 
 form{
 	width: 360px;

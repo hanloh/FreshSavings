@@ -8,7 +8,7 @@ import router from "../router/index.js";
 import { useAccountStorage } from "../main.js";
 const accountStorage = useAccountStorage();
 
-const from = ref("default"); // Define the from variable here
+const from = ref("default");
 
 const handleLogin = async () => {
   errorMessage.value = "";
@@ -26,7 +26,6 @@ const handleLogin = async () => {
       const user = response.data.user;
       const sessionData = response.data.session;
 
-      // Store user data in the local storage
       localStorage.setItem("user", JSON.stringify(user));
       console.log("User data stored in local storage:", user);
       console.log("Session data from the response:", response.data.session);
@@ -75,7 +74,7 @@ onMounted(() => {
     input.addEventListener("blur", remcl);
   });
 
-  const userSelection = "example"; // Assume this value comes from some user action
+  const userSelection = "example"; 
   from.value = userSelection;
   const script = document.createElement("script");
   // script.src = 'https://apis.google.com/js/api:client.js';
@@ -97,7 +96,6 @@ onMounted(() => {
     <section class="container-fluid row">
       <img class="col-4 vh-100" :src="require('@/assets/img/loginbg.jpg')" />
       <div class="col-8 d-flex justify-content-center align-items-center">
-        <!-- <div></div> -->
         <div
           class="login-content d-flex justify-content-center align-items-center">
           <form @submit.prevent="handleLogin">
@@ -136,17 +134,11 @@ onMounted(() => {
                   @click="handleLogin" />
               </div>
             </div>
-            <!-- <a href="#">Forgot Password?</a>
-		<input type="submit" class="btn" value="Login" @click="handleLogin"> -->
 
             <div class="line-text">or</div>
             <div class="social-container">
               <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-              <!-- <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a> -->
-              <a href="#" class="social"
-                ><i class="fab fa-google-plus-g"></i
-              ></a>
-
+              <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
               <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <div
@@ -202,9 +194,7 @@ export default {
   color: red;
   display: inline-block;
   margin-left: 10px;
-  /* Adjust the margin as needed */
   font-size: 14px;
-  /* Adjust the font size as needed */
 }
 
 // .g-signin-button {
@@ -227,24 +217,18 @@ body {
   font-family: "Poppins", sans-serif;
   overflow: hidden;
   margin: 0;
-  /* Reset margin */
   padding: 0;
-  /* Reset padding */
 }
 
 .text {
   display: flex;
-  /* Set the display to flex */
   align-items: center;
-  /* Center items vertically */
   justify-content: center;
 }
 
 .create-account-link {
   text-decoration: underline;
-  /* Apply underline to the link */
   color: #32be8f;
-  /* Change link color if needed */
   padding-left: 2px;
 }
 
@@ -310,20 +294,16 @@ a:hover {
   height: 100vh;
   display: grid;
   place-items: center;
-  /* Center the content both horizontally and vertically */
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 15rem;
   padding: 0 1rem;
 }
 
 .login-content {
-  // display: flex;
   justify-content: center;
-  /* Change to center to horizontally center the content */
   align-items: center;
   text-align: center;
   width: 100%;
-  /* Ensure the content takes up the full width of the parent container */
 }
 
 form {

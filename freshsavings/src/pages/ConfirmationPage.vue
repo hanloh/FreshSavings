@@ -26,8 +26,6 @@
       loop: true,
       autoplay: true,
     });
-    // this.animation.setSubframe(false); // Adjust subframe to prevent blurry animations
-    // this.animation.setSize(300, 300); 
   },
 };
 </script>
@@ -39,8 +37,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%; /* Adjust the width as needed */
-  height: 50vh; /* Adjust the height as needed */
+  width: 50%;
+  height: 50vh;
   margin: 0px auto 0;
   background-color: #FAF9F6;
 

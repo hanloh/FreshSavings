@@ -1,12 +1,6 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap';
 import axios from "axios";
-// import { gsap } from "gsap";
-// import firstImage from "@/assets/img/sale.png";
-// import secondImage from "@/assets/img/trusted.png";
-// import thirdImage from "@/assets/img/quality.png";
 
 import { useAccountStorage } from "../main.js";
 const accountStorage = useAccountStorage();
@@ -31,7 +25,6 @@ const accountStorage = useAccountStorage();
         </div>
         <div
           class="row row-cols-1 row-cols-md-3 justify-content-around row-gap-2">
-          <!-- <div class="col-4" id="firstcol"> -->
           <div
             class="col px-2 m-auto"
             v-for="(promise, index) of ourPromise"
@@ -205,7 +198,6 @@ const accountStorage = useAccountStorage();
                   this.chooseCategories.includes(product.icat)
                 "
                 class="col my-2">
-                <!--<div v-if="product.posting_status == 'Active' && cart.indexOf(product.pid) == -1 && searched(product.iname) && checkDistance(product.a_lat, product.a_long)" class="col mb-5">-->
 
                 <div
                   class="card h-100"
@@ -280,7 +272,6 @@ const accountStorage = useAccountStorage();
               </div>
             </template>
           </div>
-          <!-- </div> -->
         </div>
       </div>
     </section>
@@ -329,9 +320,6 @@ export default {
       showdel: false,
       allAvailableCategories: ["Fish", "Fruits", "Dairy", "Meat"],
       chooseCategories: ["Fish", "Fruits", "Dairy", "Meat"],
-      // firstImageUrl: firstImage,
-      // secondImageUrl: secondImage,
-      // thirdImageUrl: thirdImage,
       searching: "",
       cart: useAccountStorage().cart,
       groceryItems: [],
@@ -378,7 +366,7 @@ export default {
     this.GetPostingsAndAddDistance();
   },
   mounted() {
-    // Call the API endpoint when the component is mounted
+
   },
   computed: {},
   methods: {
@@ -431,12 +419,12 @@ export default {
     },
 
     async GetDistanceAPI(Lat, Lng) {
-      const originLat = this.buyerLat; // Replace with your origin's latitude
-      const originLng = this.buyerLong; // Replace with your origin's longitude
-      const destLat = Lat; // Replace with your destination's latitude
-      const destLng = Lng; // Replace with your destination's longitude
-      const units = "metric"; // Units of measurement
-      const apiKey = "AIzaSyBaK6fapQE5NMhxj0ZZdKcQsn9o1xhZf3M"; // Your API key
+      const originLat = this.buyerLat;
+      const originLng = this.buyerLong;
+      const destLat = Lat;
+      const destLng = Lng;
+      const units = "metric";
+      const apiKey = "AIzaSyBaK6fapQE5NMhxj0ZZdKcQsn9o1xhZf3M";
 
       const url = `http://localhost:3000/get-distance?originLat=${originLat}&originLng=${originLng}&destLat=${destLat}&destLng=${destLng}&units=${units}&apiKey=${apiKey}`;
 
@@ -456,7 +444,7 @@ export default {
         return awayfrom;
       } catch (error) {
         console.error("Fetch error:", error);
-        return 0; // Handle the error and return a default value
+        return 0;
       }
     },
     async GetAllPostings() {
@@ -467,7 +455,6 @@ export default {
         console.log(response.data);
         this.groceryItems = response.data;
 
-        // Wait for AddinDistance to complete
       } catch (error) {
         console.log(error);
       }
@@ -485,19 +472,16 @@ export default {
       const resolvedDistances = await Promise.all(
         Object.values(distancePromises).map((promise) => {
           return promise.then((value) => {
-            return value; // This is the resolved distance value
+            return value;
           });
         })
       );
 
-      // Now you have an array of resolved distances
-      // Create an object to associate distances with product IDs
       const distancesWithIds = {};
       Object.keys(distancePromises).forEach((productId, index) => {
         distancesWithIds[productId] = resolvedDistances[index];
       });
 
-      // Assign it to this.distanceStorage
       this.distanceStorage = distancesWithIds;
     },
 
@@ -528,7 +512,7 @@ export default {
       this.showadd = true;
       setTimeout(() => {
         this.showadd = false;
-      }, 1300); // Hide the toast after 2 seconds
+      }, 1300);
     },
     Remove(pid) {
       let a = this.cart.indexOf(pid);
@@ -536,7 +520,7 @@ export default {
       this.showdel = true;
       setTimeout(() => {
         this.showdel = false;
-      }, 1300); // Hide the toast after 2 seconds
+      }, 1300);
     },
     distancetrack(pid) {
       return parseInt(this.distanceStorage[pid]) <= this.distanceAway;
@@ -554,49 +538,6 @@ export default {
         }
       }
     },
-
-    // animated() {
-    //   this.$nextTick(() => {
-    //     const firstCard = this.$refs.firstcard;
-    //     const secondCard = this.$refs.secondcard;
-    //     const thirdCard = this.$refs.thirdcard;
-    //     const firstCardRect = firstCard.getBoundingClientRect();
-    //     const secondCardRect = secondCard.getBoundingClientRect();
-
-    //     // Animate the third card from first card's position to second card's position
-    //     gsap.from(secondCard, {
-    //       duration: 2,
-    //       x: firstCardRect.left - secondCard.getBoundingClientRect().left,
-    //     });
-    //     gsap.fromTo(
-    //       thirdCard,
-    //       {
-    //         x: firstCardRect.left - thirdCard.getBoundingClientRect().left,
-    //       },
-    //       {
-    //         duration: 2,
-    //         x: secondCardRect.left - thirdCard.getBoundingClientRect().left,
-    //         onComplete: () => {
-    //           // Animation from first to second card is complete
-    //           // Now, animate the third card from second card's position to its final position
-    //           gsap.fromTo(
-    //             thirdCard,
-    //             {
-    //               x:
-    //                 firstCardRect.left - thirdCard.getBoundingClientRect().left,
-    //             },
-    //             {
-    //               duration: 2,
-    //               x:
-    //                 secondCardRect.left -
-    //                 thirdCard.getBoundingClientRect().left,
-    //             }
-    //           );
-    //         },
-    //       }
-    //     );
-    //   });
-    // },
 
     changeDistance(Newdistance) {
       this.distanceAway = Newdistance;
@@ -647,7 +588,6 @@ span {
 }
 
 .css-card:hover {
-  /* transform: scale(); */
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
 }
 

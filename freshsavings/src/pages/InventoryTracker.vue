@@ -22,14 +22,6 @@ let successMessage = "";
       </div>
     </div>
 
-    <!-- Search Bar -->
-    <!-- <div class="input-group mx-10 mt-2 mb-5" id='sticky' style="padding-left: 20px; padding-right: 20px; height: 45px;  padding-top: 5px;">
-			<span id="search_input" class="input-group-text">
-				<Icon icon="ph:magnifying-glass" />
-			</span>
-			<input v-model="searching" type="text" id="search_input" class="form-control" placeholder="Search for ingredients" />
-		</div> -->
-
     <!-- Category Filter Buttons -->
     <div id="category">
       <div class="container-fluid justify-content-center d-flex">
@@ -177,7 +169,6 @@ let successMessage = "";
               width="180" />
 
             <div class="d-flex justify-content-between align-items-start">
-              <!-- <div class="fs-1">{{ item.emoji }}</div> -->
               <div class="d-flex gap-2 align-items-center">
                 <button
                   type="button"
@@ -188,7 +179,6 @@ let successMessage = "";
                 </button>
                 <div
                   class="p-2 rounded-circle lh-1 fs-4 fw-bold d-flex justify-content-center align-items-center inventory-qty">
-                  <!-- :style="{ color: card.qty_color }" -->
                   x{{ item.qty }}
                 </div>
                 <button
@@ -212,7 +202,6 @@ let successMessage = "";
               >
             </div>
             <div class="btn-group w-100 mt-2">
-              <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
 			<button
                 type="button"
                 class="btn bg-success-subtle"
@@ -220,8 +209,7 @@ let successMessage = "";
                 @click="removePost(item.iid, item.expiring_in)">
                 Remove
               </button>
-              <!-- </div> -->
-              <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
+
               <button
                 type="button"
                 class="btn btn-success"
@@ -232,7 +220,6 @@ let successMessage = "";
                 Sell
 				
               </button>
-              <!-- </div> -->
             </div>
 
             <!-- Modal Opened -->
@@ -296,153 +283,6 @@ let successMessage = "";
       </div>
     </div>
 
-    <!-- <div class="projects" name="projects">
-        <template v-for="(item, idx) in sortedArray" :key="item.iname">
-          <TransitionGroup
-            class="project"
-            v-if="currentFilter === item.icat || currentFilter === 'All'">
-            <div
-              class="col-lg-4 col-md-6 col-sm-12"
-              style="padding-bottom: 10px">
-              <div class="card" :style="computedItemStyle(item)">
-                <div
-                  class="card-title d-flex justify-content-between"
-                  :id="'card-title-' + idx">
-                  <div class="emoji emoji-hover">
-                    {{ item.emoji }}
-                  </div>
-                  <div id="counter" style="display: inline-flex">
-                    <button
-                      type="button"
-                      class="btn btn-outline-secondary"
-                      style="border: none"
-                      v-if="item.qty > 0"
-                      @click="modifyItemQty(idx, 'minus')">
-                      -
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-outline-secondary"
-                      style="border: none"
-                      v-else>
-                      -
-                    </button>
-                    <span class="circle"> x {{ item.qty }} </span>
-                    <button
-                      type="button"
-                      class="btn btn-outline-secondary"
-                      style="border: none"
-                      @click="modifyItemQty(idx, 'add')">
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                <div class="card-body">
-                  <p>
-                    <span class="fw-bold" style="font-size: large">{{
-                      item.iname
-                    }}</span>
-                    <br />
-                    Expiring in
-                    <span class="fw-bold" style="font-size: large">{{
-                      item.expiring_in
-                    }}</span>
-                    days
-                  </p>
-                </div> -->
-
-    <!-- Modal  -->
-    <!-- Button trigger modal -->
-    <!-- <div class="d-flex">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      style="display: block; width: 100%"
-                      @click="removeItem()">
-                      Remove
-                    </button>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <button
-                      type="button"
-                      class="btn btn-success"
-                      style="display: block; width: 100%"
-                      @click="changeItemChosen(item.iid)"
-                      data-bs-toggle="modal"
-                      :data-bs-target="'#openModal' + idx">
-                      Sell
-                    </button>
-                  </div>
-                </div> -->
-
-    <!-- Modal Opened -->
-    <!-- <div
-                  class="modal fade"
-                  :id="'openModal' + idx"
-                  tabindex="-1"
-                  aria-labelledby="openModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" :id="'ModalLabel' + idx">
-                          Listing Details
-                        </h1>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <label
-                          :for="'FormControlInput1' + idx"
-                          class="form-label"
-                          >Selling Price</label
-                        >
-                        <div class="input-group mb-3">
-                          <span class="input-group-text" id="addon-wrappifng"
-                            >$</span
-                          >
-                          <input
-                            type="number"
-                            class="form-control"
-                            :id="'FormControlInput1' + idx"
-                            v-model="price" />
-                        </div>
-                        <div class="mb-3">
-                          <label
-                            :for="'FormControlInput2' + idx"
-                            class="form-label"
-                            >Upload photo of product</label
-                          >
-                          <input
-                            type="file"
-                            class="form-control"
-                            :id="'FormControlInput2' + idx" />
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <a href="./inventory-tracker">
-                          <button
-                            type="button"
-                            class="btn btn-primary"
-                            @click="posted(price)">
-                            Post
-                          </button>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </TransitionGroup>
-        </template>
-      </div>
-    </div> -->
   </section>
 </template>
 
@@ -456,7 +296,6 @@ export default {
       user: "",
 
       items: [],
-      // inventoryItems: [],
       successMessage: "",
 
       // Form inputs
@@ -469,11 +308,8 @@ export default {
       selectedCategory: "Fruits",
       selectedEmoji: "",
 
-      // Hard-Coded
       categories: [
         { categoryName: "All", imgLink: "kitchen.png" },
-        // { categoryName: "Due Soon", imgLink: "duesoon.png" },
-        // { categoryName: "Past Due", imgLink: "pastdue.png" },
         { categoryName: "Dairy", imgLink: "milk.png" },
         { categoryName: "Fish", imgLink: "fish.png" },
         { categoryName: "Fruits", imgLink: "fruits.png" },
@@ -500,18 +336,6 @@ export default {
         },
       ],
 
-      // DO NOT DELETE THIS
-      cards: [
-        {
-          icon: "🥬",
-          qty: 4,
-          item: "Lettuce",
-          expiry: 3,
-          background:
-            "linear-gradient(135deg, rgb(202, 236, 172) 0%, rgb(131, 208, 197) 100%)",
-          qty_color: "rgb(160, 220, 187)",
-        },
-      ],
       allIngredientsAndImages: [],
     };
   },
@@ -568,8 +392,6 @@ export default {
           );
         });
           
-        
-          
     },
 	
     changeItemChosen(newiid) {
@@ -589,12 +411,11 @@ export default {
     },
 
     fetchItems() {
-      // Replace the URL with the appropriate route for getting user inventory items
-      const userId = useAccountStorage().aid; // Replace with the actual user ID
+      const userId = useAccountStorage().aid;
       axios
         .get(`http://localhost:3000/get_inventory_and_images/${userId}`)
         .then((response) => {
-          this.items = response.data; // Store the fetched inventory items in the data property
+          this.items = response.data;
           console.log("Inventory items:", this.items);
         })
         .catch((error) => {
@@ -621,7 +442,6 @@ export default {
     //     });
     // },
     getIngredientIdByName(ingredientName) {
-      // Make a GET request to the server-side endpoint to retrieve all ingredients
       axios
         .get("http://localhost:3000/get_all_ingredients")
         .then((response) => {
@@ -638,7 +458,6 @@ export default {
     },
 
     insertItem() {
-      // Access the values from the input fields
       const itemName = this.ingredient_name;
       const itemQuantity = this.ingredient_quantity;
       const selectedCategory = this.selectedCategory;
@@ -667,8 +486,6 @@ export default {
         .then(async (response) => {
           const ingredientId = response.data.iid;
           if (ingredientId) {
-            // Now you can use these variables to perform any necessary logic or actions
-            // For example, you can use them in your axios POST request
 
             try {
               const postResponse = await axios.post(
@@ -679,7 +496,6 @@ export default {
                   qty: itemQuantity,
                   expiring_in: daysDifference, // Store the calculated difference in days
                   ExpiryDate: expiryDate,
-                  // other data properties as needed
                 }
               );
 
@@ -704,7 +520,6 @@ export default {
           }
         })
         .catch((error) => {
-          // Handle errors
           console.error("Error retrieving ingredient ID:", error);
         });
     },
@@ -717,36 +532,7 @@ export default {
     },
 
     computedItemStyle(obj) {
-      let style = {};
 
-      if ("🧀🧈🍋🍌🥔🌽".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #FBF8CC 70%, white)";
-      } else if ("🐟🐠".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #8EECF5 70%, white)";
-      } else if ("🦑🍇🫐🍆".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #CFBAF0 70%, white)";
-      } else if ("🍈🍏🍐🥝🫒🥑🫑🥒🥬🥦".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #b9fbc0 70%, white)";
-      } else if ("🦀🦞🦐🍉🍎🍒🍓🍅".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #ffb5a7 , 70%, white)";
-      } else if ("🍍🍗🍑🥕".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #fec89a, 70%, white)";
-      } else if ("🥥🍖🥓🐓".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #e2cfc4, 70%, white)";
-      } else if ("🐖".includes(obj.emoji)) {
-        style.background = "linear-gradient(to top left, #ffacc5, 70%, white)";
-      } else {
-        style.background = "linear-gradient(to top left, #F8F6F4, 70%, white)";
-      }
-
-      // if (obj.expiring_in <= 2 && obj.expiring_in >= 0) {
-      // 	style.border = 'solid 5px orange';
-      // 	style.borderRadius = '1rem';
-      // }
-      // else if (obj.expiring_in < 0) {
-      // 	style.border = 'solid 5px orange';
-      // 	style.borderRadius = '1rem';
-      // }
     },
 
     formAction(action) {
@@ -830,7 +616,6 @@ export default {
 
 <style scoped>
 .container {
-  /* position: relative; */
   text-align: left;
 }
 
@@ -886,7 +671,6 @@ export default {
 
 .card {
   max-width: 260px;
-  /* border-radius: 8px; */
   position: relative;
   padding: 0.7em;
   width: 350px;
@@ -959,7 +743,6 @@ export default {
   align-items: center;
 }
 
-/* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
   background-color: #508e46;
   color: white;
@@ -1043,7 +826,6 @@ export default {
 
 input[type="radio"] {
   opacity: 0;
-  /* hidden but still tabable */
   position: absolute;
   z-index: 9;
   border: 0px;

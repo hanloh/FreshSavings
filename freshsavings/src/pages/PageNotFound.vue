@@ -2,7 +2,6 @@
   <div>
 
     <svg id="mainImage_create svgStyle" data-name="mainImage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171.5 81.5">
-      <!-- SVG content here -->
       <path id="c-1" class="changeColor cls-1"
         d="M46.62,52.5c5.78,4.9,21.14,8.4,39.19,8.4s33.41-3.5,39.19-8.4c-5.78-4.9-21.14-8.4-39.19-8.4S52.41,47.6,46.62,52.5Z"
         style="fill: rgb(0, 156, 29);"></path>

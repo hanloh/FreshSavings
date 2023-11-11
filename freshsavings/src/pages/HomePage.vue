@@ -31,20 +31,6 @@ import { Icon } from "@iconify/vue";
           class="btn btn-outline-light align-self-center">
           <span class="pe-2">Kickstart your journey now</span>
           <Icon icon="solar:cup-star-outline" height="24" width="24" />
-          <!--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <g transform="rotate(-90 12 12)">
-              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                <path stroke-dasharray="14" stroke-dashoffset="14" d="M19 12H5.5">
-                  <animate fill="freeze" repeatCount="indefinite" attributeName="stroke-dashoffset" dur="1s"
-                    values="14;0" />
-                </path>
-                <path stroke-dasharray="8" stroke-dashoffset="8" d="M5 12L10 17M5 12L10 7">
-                  <animate fill="freeze" repeatCount="indefinite" attributeName="stroke-dashoffset" begin="1s" dur="1s"
-                    values="8;0" />
-                </path>
-              </g>
-            </g>
-          </svg>-->
         </a>
       </div>
       <div class="col col-md-6 px-0"></div>
@@ -181,7 +167,6 @@ import { Icon } from "@iconify/vue";
           </div>
         </div>
       </div>
-      <!--<img :src=" require('@/assets/img/notification.gif')" class="img-thumbnail" />-->
     </div>
 
     <!-- recipe-generator -->
@@ -275,13 +260,6 @@ import { Icon } from "@iconify/vue";
               <img
                 :src="require('@/assets/img/banana.webp')"
                 class="img-fluid object-fit-cover" />
-              <!-- <div class="card__content">
-                <p class="card__title">Card Title</p>
-                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
-              </div> -->
             </div>
           </div>
           <div class="p-2">
@@ -289,13 +267,6 @@ import { Icon } from "@iconify/vue";
               <img
                 :src="require('@/assets/img/yoghurt.webp')"
                 class="img-fluid object-fit-cover" />
-              <!-- <div class="card__content">
-                <p class="card__title">Card Title</p>
-                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
-              </div> -->
             </div>
           </div>
           <div class="p-2">
@@ -303,13 +274,6 @@ import { Icon } from "@iconify/vue";
               <img
                 :src="require('@/assets/img/salmon.webp')"
                 class="img-fluid object-fit-cover" />
-              <!-- <div class="card__content">
-                <p class="card__title">Card Title</p>
-                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
-              </div> -->
             </div>
           </div>
           <div class="p-2">
@@ -317,13 +281,6 @@ import { Icon } from "@iconify/vue";
               <img
                 :src="require('@/assets/img/orange.avif')"
                 class="img-fluid object-fit-cover" />
-              <!-- <div class="card__content">
-                <p class="card__title">Card Title</p>
-                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-                </p>
-              </div> -->
             </div>
           </div>
           <div class="col p-0 order-3 order-lg-1">
@@ -332,14 +289,6 @@ import { Icon } from "@iconify/vue";
                 <img
                   :src="require('@/assets/img/shrimp.jpg')"
                   class="img-fluid object-fit-cover" />
-                <!-- <div class="card__content">
-                  <p class="card__title">Card Title</p>
-                  <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.
-                  </p>
-                </div> -->
               </div>
             </div>
             <div class="p-2">
@@ -347,14 +296,6 @@ import { Icon } from "@iconify/vue";
                 <img
                   :src="require('@/assets/img/kiw.jpeg')"
                   class="img-fluid object-fit-cover" />
-                <!-- <div class="card__content">
-                  <p class="card__title">Card Title</p>
-                  <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.
-                  </p>
-                </div> -->
               </div>
             </div>
           </div>
@@ -364,14 +305,6 @@ import { Icon } from "@iconify/vue";
                 <img
                   :src="require('@/assets/img/cabbage.webp')"
                   class="img-fluid object-fit-cover" />
-                <!-- <div class="card__content">
-                  <p class="card__title">Card Title</p>
-                  <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.
-                  </p>
-                </div> -->
               </div>
             </div>
             <div class="p-2">
@@ -379,19 +312,10 @@ import { Icon } from "@iconify/vue";
                 <img
                   :src="require('@/assets/img/butter.avif')"
                   class="img-fluid object-fit-cover" />
-                <!-- <div class="card__content">
-                  <p class="card__title">Card Title</p>
-                  <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.
-                  </p>
-                </div> -->
               </div>
             </div>
           </div>
 
-          <!-- <div class="col mt-3 mb-2" id="marketplace-card"> -->
           <div class="px-2 my-2 w-50 order-2" id="marketplace-card">
             <div
               class="rounded-4 glass-card h-100 px-4 py-5 text-light d-flex justify-content-center align-items-center flex-column">
@@ -408,36 +332,6 @@ import { Icon } from "@iconify/vue";
               </h2>
             </div>
           </div>
-          <!-- </div> -->
-
-          <!-- <div class="col p-0 order-3 order-lg-1">
-            <div class="p-2 mb-2">
-              <div class="css-card col p-0 order-3 order-lg-1">
-                <img :src="require('@/assets/img/banana.webp')" class="img-fluid object-fit-cover" />
-                <div class="card__content">
-                  <p class="card__title">Card Title</p>
-                  <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="p-2">
-              <div class="css-card col p-0 order-3 order-lg-1">
-                <img :src="require('@/assets/img/banana.webp')" class="img-fluid object-fit-cover" />
-                <div class="card__content">
-                  <p class="card__title">Card Title</p>
-                  <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -731,7 +625,6 @@ a {
 
 .inventory-qty {
   height: 52px;
-  /* width: 60px; */
   aspect-ratio: 1/1;
   background-color: rgba(255, 255, 255, 0.7);
 }
@@ -793,9 +686,7 @@ a {
   position: relative;
   width: 100%;
   max-width: 800px;
-  /* min-width: 400px; */
   height: 280px;
-  /* margin: 0 auto; */
   background: #fafafa;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -831,46 +722,29 @@ a {
 
 /* (A) SPEECH BOX */
 .speech {
-  /* (A1) FONT */
-  /* (A2) COLORS */
   color: #fff;
-  /* background-color: #a53d38; */
-
-  /* (A3) DIMENSIONS + POSITION */
   position: relative;
   padding: 20px;
   border-radius: 10px;
-  /* margin: 50px auto; */
-  /* max-width: 320px; */
 }
 
-/* (B) ADD SPEECH "CALLOUT TAIL" */
-/* (B1) USE ::AFTER TO CREATE THE "TAIL" */
 .speech::after {
-  /* (B1-1) ATTACH TRANSPARENT BORDERS */
   content: "";
   border: 20px solid transparent;
 
-  /* (B1-2) NECESSARY TO POSITION THE "TAIL" */
   position: absolute;
 }
 
-/* (C) DIFFERENT TAIL POSITIONS */
-/* (C1) TOP */
 .top.speech::after {
-  /* (C1-1) UP TRIANGLE */
   border-bottom-color: rgba(255, 255, 255, 0.18);
   border-top: 0;
 
-  /* (C1-2) POSITION AT TOP */
   top: -21px;
   right: 8%;
-  /* margin-left: -20px; */
 }
 
 .css-card {
   position: relative;
-  /* width: 300px; */
   height: 300px;
   background-color: #fff;
   border-radius: 10px;
@@ -879,18 +753,15 @@ a {
   justify-content: center;
   overflow: hidden;
   perspective: 1000px;
-  /* box-shadow: 0 0 0 5px #ffffff80; */
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .css-card svg {
-  /* width: 48px; */
   fill: #333;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .css-card:hover {
-  /* transform: scale(); */
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
 }
 
@@ -931,7 +802,6 @@ a {
 }
 
 #marketplace-card {
-  /* border-radius: 18px; */
   width: 100% !important;
 
   @media (min-width: 992px) {

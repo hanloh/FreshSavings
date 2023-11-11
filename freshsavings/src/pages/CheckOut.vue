@@ -9,7 +9,6 @@
 <template>
   
   <div>
-    <!-- <NavBar /> -->
     
     <section class="h-100 p-5">
       <h2 class="pb-3" id="heading">Cart</h2>
@@ -18,20 +17,7 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-lg-12">
             <div class="row">
-              <div class="col-lg-7" id="cart-section">
-
-                <!-- <div class="d-flex justify-content-between align-items-center mb-4">
-                  <div style="flex: 1;">
-                    <p class="mb-1 text-center">Product</p>
-                  </div>
-                  <div style="flex: 1;">
-                    <p class="mb-1 text-center">Quantity</p>
-                  </div>
-                  <div style="flex: 1; padding-right: 40px;">
-                    <p class="mb-1 text-center">Price</p>
-                  </div>
-                </div> -->
-                
+              <div class="col-lg-7" id="cart-section">                
 
                 <!-- 2.Delivery Options -->
                 <div class="accordion mb-3" :id="'accordianSelf1'">
@@ -97,9 +83,6 @@
                 </div>
               </div>
 
-                
-
-                
 
                       </div>
                     </div>
@@ -109,8 +92,6 @@
                 <div class="header-container">
                   <p class="mb-1 custom-text">Delivery Options</p>
                 </div>
-
-                
                   
                 <div class="accordion my-3" :id="'accordianSelf2'" v-if="AddressList.length <= 1">
                   <div class="accordion-item">
@@ -134,6 +115,7 @@
                           Choose a pickup time!
                         </p>
                       </div>
+
                       <!-- Calendar -->
                       <section>
                         <input v-if="dateError != ''" class="mb-1" type="date" v-model="date" @input="validateDate" inline auto-apply/>
@@ -177,8 +159,7 @@
                           class="block inner-shadow rounded border-2 w-full mt-2 p-1"
                           type="text"
                           id="fullName"
-                          name="fullName"
-                          
+                          name="fullName"  
                         />
                       </div>
                       <div class="input mt-4">
@@ -264,18 +245,18 @@
                         <div class='map-container'>
                           <GoogleMap id="map"
                           api-key="AIzaSyBaK6fapQE5NMhxj0ZZdKcQsn9o1xhZf3M"
-  :center="center"
-  :zoom="14"
-  map-type-id="terrain"
-  
->
-<Marker :options="{ position: center }"></Marker>
-<CustomMarker :options="{position: marking.position}" v-for="(marking, idx) of productList" :key="idx">
-      <div style="text-align: center">
-        <img :src="imageUrl(marking.Image)" width="50" height="50" />
-      </div>
-    </CustomMarker>
-</GoogleMap>
+                            :center="center"
+                            :zoom="14"
+                            map-type-id="terrain"
+                            
+                          >
+                          <Marker :options="{ position: center }"></Marker>
+                          <CustomMarker :options="{position: marking.position}" v-for="(marking, idx) of productList" :key="idx">
+                                <div style="text-align: center">
+                                  <img :src="imageUrl(marking.Image)" width="50" height="50" />
+                                </div>
+                              </CustomMarker>
+                          </GoogleMap>
                         </div>
 
                       </div>
@@ -388,18 +369,11 @@
 
                 </div>
               </div>
-              
-
             </div>
           </div>
-        </div>
-        
-          
-        
-      </div>
-      
+        </div>         
+      </div>     
     </section>
-
   </div>
 </template>
 
@@ -447,7 +421,6 @@ export default {
     cardCVV: "",
     
 
-    
     center: {lat: useAccountStorage().lat, lng: useAccountStorage().lng},
     markers: {},
           
@@ -555,7 +528,6 @@ export default {
       const selectedDate = new Date(this.date);
       const today = new Date();
 
-      // Compare selected date with today's date
       if (selectedDate < today) {
         this.dateError = 'Please choose a date equal to or after today.';
         this.date = "";
@@ -665,7 +637,6 @@ export default {
 			}
 		},
     deleteCard(pid) {
-      // Use appropriate logic to delete the card based on the card number
       let arr = [];
       for(let i of this.products){
         if(i != pid){
@@ -746,14 +717,6 @@ export default {
 
 
 <style scoped>
-/* Add your CSS styles here */
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-} */
-
 #delete1:hover {
   color: red;
 }
@@ -763,23 +726,11 @@ export default {
   padding: 20px;
 }
 
-
-/* .summary {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-} */
-
-/* .summary p {
-  margin-bottom: 15px;
-} */
-
 .empty-container{
-  width: 100%; /* Make the container take the full width of its parent */
-  height: 0; /* Initially set the height to 0 */
-  padding-bottom: 60%; /* Set the aspect ratio you desire (e.g., 60% for a 2:1 ratio) */
-  position: relative; /* Position is relative to the container */
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+  position: relative;
 }
 
 #empty{position: absolute;
@@ -788,13 +739,13 @@ export default {
   width: 100%;
   height: 100%;}
 .map-container {
-  width: 100%; /* Make the container take the full width of its parent */
-  height: 0; /* Initially set the height to 0 */
-  padding-bottom: 60%; /* Set the aspect ratio you desire (e.g., 60% for a 2:1 ratio) */
-  position: relative; /* Position is relative to the container */
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%;
+  position: relative;
 }
 
-/* Make the map fill the entire container */
+
 #map {
   position: absolute;
   top: 0;
@@ -859,8 +810,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
-
 .quantity-field {
   border: none !important;
   /* Remove the border */
@@ -873,13 +822,12 @@ a:hover {
 .input-group-prepend,
 .input-group-append {
   display: flex;
-  /* Display the elements as flex */
 }
 
 .input-group-text {
   border: none !important;
-  /* Remove the border */
 }
+
 #sticky {
   position: sticky;
   z-index:5;
