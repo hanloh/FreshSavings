@@ -11,19 +11,6 @@ const axios = require("axios");
 const session = require("express-session");
 axios.defaults.withCredentials = true;
 
-const url = "http://localhost:3000/test_session";
-
-// Make a GET request to the test_session endpoint
-axios
-  .get(url, {
-    withCredentials: true, // Ensure that credentials are included in the request
-  })
-  .then((response) => {
-    console.log("Response data:", response.data);
-  })
-  .catch((error) => {
-    console.error("Error occurred:", error);
-  });
 
 app.use(
   cors({
@@ -41,11 +28,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use('/login', Anyroute)
-// app.use(express.json())
-// app.use('/api', Anyroute)
 
-// Create a MySQL connection
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -71,7 +54,6 @@ console.log(process.env.DB_USER);
 console.log(process.env.DB_PASSWORD);
 console.log(process.env.DB_NAME);
 
-// Connect to the database
 connection.connect((err) => {
   if (err) {
     console.error("Error connecting to the database:", err);
@@ -81,7 +63,7 @@ connection.connect((err) => {
 });
 
 app.get("/get_all_ingredients", (req, res) => {
-  // Query the database to retrieve ingredients
+
   connection.query("SELECT * FROM freshsavings.Ingredient", (err, results) => {
     if (err) {
       console.error("Error querying the database:", err);
@@ -93,7 +75,6 @@ app.get("/get_all_ingredients", (req, res) => {
 });
 
 app.get("/get_all_products", (req, res) => {
-  // Query the database to retrieve ingredients
   connection.query(
     "select expiring_in, pid, Ingredient.iid, Ingredient.iname, selling_price, selling_quantity, fname, lname, said, Account.postalcode, Account.a_lat, Account.a_long, posting_status, icat, Ingredient.price, image from freshsavings.Posting, freshsavings.Account, freshsavings.Ingredient where Posting.said = Account.aid and Posting.iid = Ingredient.iid",
     (err, results) => {
@@ -108,7 +89,6 @@ app.get("/get_all_products", (req, res) => {
 });
 
 app.get("/get_product_description/:pid", (req, res) => {
-  // Query the database to retrieve ingredients
   const pid = parseInt(req.params.pid);
   connection.query(
     "select expiring_in, pid, Ingredient.iid, Ingredient.iname, selling_price, selling_quantity, fname, lname, said, Account.postalcode, Account.a_lat, Account.a_long, posting_status, icat, Ingredient.price, image from freshsavings.Posting, freshsavings.Account, freshsavings.Ingredient where Posting.said = Account.aid and Posting.iid = Ingredient.iid and Posting.pid = ?",
@@ -124,7 +104,6 @@ app.get("/get_product_description/:pid", (req, res) => {
   );
 });
 app.get("/get_address/:aid", (req, res) => {
-  // Query the database to retrieve ingredients
   const aid = parseInt(req.params.aid);
   connection.query(
     "select postalcode, a_lat, a_long from freshsavings.Account where aid = ?",
@@ -139,8 +118,8 @@ app.get("/get_address/:aid", (req, res) => {
     }
   );
 });
+
 app.get("/get_all_ingredients_categories", (req, res) => {
-  // Query the database to retrieve ingredients
   connection.query(
     "select iid, iname, icat, img from freshsavings.Ingredient order by icat",
     (err, results) => {
@@ -155,7 +134,6 @@ app.get("/get_all_ingredients_categories", (req, res) => {
 });
 
 app.get("/get_all_recipes", (req, res) => {
-  // Query the database to retrieve ingredients
   connection.query(
     "SELECT r.rid, ri.iid, rname, i.iname, r.rimg, ri.qty, r.url FROM freshsavings.RecipeIngredient ri, freshsavings.Recipe r, freshsavings.Ingredient i WHERE ri.rid = r.rid AND i.iid = ri.iid;",
     (err, results) => {
@@ -171,10 +149,7 @@ app.get("/get_all_recipes", (req, res) => {
 
 app.get("/get_user_inventory_items/:userid", (req, res) => {
   const userid = parseInt(req.params.userid);
-
-  // aid of currently logged-in user
   connection.query(
-    // TODO: make query more specific after finalising the data to fetch
     "SELECT a.aid, a.iid, i.iname, a.qty, a.expiring_in, i.icat, i.emoji FROM freshsavings.AccountInventory a JOIN freshsavings.Ingredient i ON a.iid = i.iid WHERE a.aid = ?;",
     [userid],
     (err, results) => {
@@ -228,6 +203,7 @@ app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
     }
   );
 });
+
 app.post("/afterCheckOut/:aid/:arrPid", (req, res) => {
   const aid = parseInt(req.params.aid);
   const arrPid = req.body.arrPid.map((pid) => parseInt(pid));
@@ -298,7 +274,6 @@ app.all("/login", (req, res) => {
         }
         if (results.length > 0) {
           if (results[0].password === password) {
-            // Login successful, store the user data in the session
             req.session.user = results[0];
 
             console.log("User data stored in session:", req.session.user); // Log the user data in the session
@@ -308,28 +283,15 @@ app.all("/login", (req, res) => {
               session: req.session,
             });
           } else {
-            // Incorrect password, return an error message
             res.status(401).json({ error: "Invalid credentials" });
           }
         } else {
-          // User not found, return an error message
           res.status(404).json({ error: "User not found" });
         }
       }
     );
   } else {
-    // Handle other HTTP methods
     res.status(405).send("Method Not Allowed");
-  }
-});
-
-app.get("/test_session", (req, res) => {
-  if (req.session && req.session.user) {
-    const user = req.session.user;
-    console.log("User data from session:", user);
-    res.status(200).json({ message: "User is logged in", user });
-  } else {
-    res.status(401).json({ message: "User is not logged in" });
   }
 });
 
@@ -363,7 +325,6 @@ app.post("/signup", (req, res) => {
     errors.push("Invalid email format.");
   }
 
-  // Return errors array if any errors are found
   if (errors.length > 0) {
     return res.status(400).json({ errors });
   }
@@ -381,16 +342,13 @@ app.post("/signup", (req, res) => {
         return res.status(400).json({ errors: ["Email already exists."] });
       }
 
-      // Hardcode the postal code and retrieve its latitude and longitude
       const postalCode = "670641";
       const latitude = "1.38765766146094";
       const longitude = "103.76208975109";
 
-      // Store user data in the session
       req.session.user = { email, password, postalCode, latitude, longitude };
       console.log("User data stored in session:", req.session.user);
 
-      // Insert the new user record with the postal code and its coordinates
       connection.query(
         "INSERT INTO freshsavings.Account (email, password, postalcode, a_lat, a_long) VALUES (?, ?, ?, ?, ?)",
         [email, password, postalCode, latitude, longitude],
@@ -420,13 +378,10 @@ app.get("/get-distance", async (req, res) => {
     const units = req.query.units;
     const apiKey = req.query.apiKey;
 
-    // Construct the API URL using latitude and longitude
     const apiUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${originLat},${originLng}&destinations=${destLat},${destLng}&units=${units}&key=${apiKey}`;
 
-    // Make the API request to Google Maps
     const response = await axios.get(apiUrl);
 
-    // Return the response data to the client
     res.json(response.data);
   } catch (error) {
     console.error(error);
@@ -435,12 +390,10 @@ app.get("/get-distance", async (req, res) => {
 });
 
 app.post("/add_inventory_item", (req, res) => {
-  const { aid, iid, expiring_in, qty } = req.body; // Extract data from the request body
+  const { aid, iid, expiring_in, qty } = req.body;
 
-  // Construct the SQL query to insert a new row into the AccountInventory table
   const sql = `INSERT INTO freshsavings.AccountInventory (aid, iid, expiring_in, qty) VALUES ('${aid}', '${iid}', ${expiring_in}, ${qty}')`;
 
-  // Execute the SQL query
   connection.query(sql, (err, result) => {
     if (err) {
       console.error("Error adding item to inventory:", err);
@@ -449,7 +402,6 @@ app.post("/add_inventory_item", (req, res) => {
 
     console.log("New inventory item added to AccountInventory");
 
-    // Query the database to get the newly added item
     const fetchNewItemSQL = `SELECT * FROM freshsavings.AccountInventory WHERE aid = '${aid}' AND iid = '${iid}'`;
     connection.query(fetchNewItemSQL, (fetchErr, fetchResult) => {
       if (fetchErr) {
@@ -457,8 +409,8 @@ app.post("/add_inventory_item", (req, res) => {
         return res.status(500).send("Error fetching newly added item");
       }
 
-      const newItem = fetchResult[0]; // Assuming the query result is an array with a single item
-      res.status(200).json(newItem); // Send the newly added item as the response
+      const newItem = fetchResult[0];
+      res.status(200).json(newItem);
     });
   });
 });
@@ -487,7 +439,6 @@ app.get("/get_ingredient_id_by_name", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  // Destroy the session
   req.session.destroy((err) => {
     if (err) {
       console.error("Error destroying session:", err);
@@ -498,45 +449,13 @@ app.get("/logout", (req, res) => {
   });
 });
 
-// TO DO: check if it's right
-app.post("/insertNewInventoryItem", (req, res) => {
-  const updatedData = req.body;
-
-  // Perform the SQL update operation
-  const AccountInventoryQuery =
-    "INSERT INTO freshsavings.AccountInventory(aid, iid, expiring_in, qty, emoji) VALUES (?, ?, ?, ?, ?);";
-  
-
-  connection.beginTransaction((err) => {
-    if (err) {
-      console.error("Error starting transaction:", err);
-      res.status(500).send("Internal Server Error");
-      return;
-    }
-
-    connection.query(
-      AccountInventoryQuery,
-      [aid, iid, expiring_in, qty],
-      (error, productResults) => {
-        if (error) {
-          return connection.rollback(() => {
-            console.error("Error inserting data into products:", error);
-            res.status(500).send("Internal Server Error");
-          });
-        }
-      }
-    );
-  });
-});
 
 app.delete("/delete-data", (req, res) => {
   const dataToDelete = req.body;
 
-  // Use a SQL query to delete data from your database
   const sql =
     "DELETE FROM freshsavings.AccountInventory WHERE aid = ? and iid =  ?";
 
-  // Execute the SQL query with the data to delete
   yourDatabaseConnection.query(sql, [dataToDelete.id], (error, results) => {
     if (error) {
       console.error("Error deleting data:", error);
@@ -546,10 +465,6 @@ app.delete("/delete-data", (req, res) => {
       res.status(200).send("Data deleted successfully");
     }
   });
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
 });
 
 app.get("/get_inventory_and_images/:userid", (req, res) => {
@@ -567,8 +482,6 @@ app.get("/get_inventory_and_images/:userid", (req, res) => {
       }
     );
   });
-
-
 
 
 app.post("/DecreaseQuantity/:aid/:iid/:expiring_in"), (req, res) => {
@@ -616,6 +529,7 @@ app.post("/DecreaseQuantity/:aid/:iid/:expiring_in"), (req, res) => {
     }
   );
 }
+
 app.post("/IncreaseQuantity/:aid/:iid/:expiring_in"), (req, res) => {
   const aid = parseInt(req.params.aid);
   const iid = parseInt(req.params.iid);
@@ -726,4 +640,8 @@ app.post("/InventorytoPosting/:aid/:iid/:s_price", (req, res) => {
       );
     }
   );
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
