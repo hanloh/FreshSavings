@@ -54,11 +54,11 @@
                           <img :src="imageUrl(product.Image)" class="img-fluid rounded-3" alt="Shopping item"
                             style="width: 65px;">
                         </div>
-                        <div class="ms-3">
+                        <div class="ms-3" style="text-align:left;">
                           <b>
                             <h6>{{ product.Name }}</h6>
                           </b>
-                          <p class="small mb-0 text-center">Address: {{ product.Address }}</p>
+                          <p class="small mb-0">Address: {{ product.Address }}</p>
                         </div>
                       </div>
                       <div class="d-flex flex-row align-items-center">
