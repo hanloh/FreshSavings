@@ -1,6 +1,5 @@
 import App from "../App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import Marketplace from "../pages/Marketplace.vue";
 import CheckOut from "../pages/CheckOut.vue";
 import LogIn from "../pages/LogIn.vue";
 import SignUp from "../pages/SignUp.vue";
@@ -9,7 +8,7 @@ import InventoryTracker from "../pages/InventoryTracker.vue";
 import PageNotFound from "../pages/PageNotFound.vue";
 import HomePage from "../pages/HomePage.vue";
 import ConfirmationPage from "../pages/ConfirmationPage.vue";
-import MarketPlace from "../pages/Marketplace.vue";
+import MarketPlace from "../pages/MarketPlace.vue";
 
 const routes = [
   // {
