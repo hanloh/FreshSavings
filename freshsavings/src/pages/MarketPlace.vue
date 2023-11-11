@@ -75,7 +75,7 @@ const accountStorage = useAccountStorage();
             <div
               class="d-flex justify-content-between mb-2 flex-column align-items-start flex-md-row">
               <h5 class="text-start">Filter by category</h5>
-              <button
+              <!-- <button
                 type="button"
                 class="btn d-flex btn-link p-0 gap-2 text-decoration-none align-self-end"
                 :class="[
@@ -103,7 +103,38 @@ const accountStorage = useAccountStorage();
                   icon="solar:add-square-outline"
                   width="24"
                   height="24" />
-              </button>
+              </button> -->
+              <button
+  type="button"
+  class="btn d-flex btn-link p-0 gap-2 text-decoration-none align-self-end"
+  :class="[
+    chooseCategories && chooseCategories.length > 0
+      ? 'text-danger'
+      : 'text-success',
+  ]"
+  @click="chooseCategories && chooseCategories.length > 0
+    ? clearCategories()
+    : chooseAllCategories()"
+>
+  {{
+    chooseCategories && chooseCategories.length > 0
+      ? "Unselect all"
+      : "Select all"
+  }}
+  <Icon
+    v-if="chooseCategories && chooseCategories.length > 0"
+    icon="solar:trash-bin-trash-outline"
+    width="24"
+    height="24"
+  />
+  <Icon
+    v-else
+    icon="solar:add-square-outline"
+    width="24"
+    height="24"
+  />
+</button>
+
             </div>
             <div
               class="btn-group-vertical w-100"
@@ -115,10 +146,10 @@ const accountStorage = useAccountStorage();
                 type="button"
                 class="btn btn-outline-success d-flex gap-3 align-items-center"
                 :class="{
-                  active: this.chooseCategories.includes(category.categoryName),
+                  active: chooseCategories.includes(category.categoryName),
                 }"
                 @click="
-                  !this.chooseCategories.includes(category.categoryName)
+                  !chooseCategories.includes(category.categoryName)
                     ? addToCategoriesChosen(category.categoryName)
                     : RemoveFromCategoriesChosen(category.categoryName)
                 ">
@@ -195,7 +226,7 @@ const accountStorage = useAccountStorage();
                   product.posting_status == 'Active' &&
                   searched(product.iname) &&
                   distancetrack(product.pid) &&
-                  this.chooseCategories.includes(product.icat)
+                  chooseCategories.includes(product.icat)
                 "
                 class="col my-2">
 
