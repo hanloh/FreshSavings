@@ -93,11 +93,13 @@ onMounted(() => {
   </header>
 
   <body>
-    <section class="container-fluid row">
-      <img class="col-4 vh-100" :src="require('@/assets/img/loginbg.jpg')" />
-      <div class="col-8 d-flex justify-content-center align-items-center">
-        <div
-          class="login-content d-flex justify-content-center align-items-center">
+    <!-- <section class="container-fluid row"> -->
+      <!-- <img class="col-4 vh-100" :src="require('@/assets/img/loginbg.jpg')" /> -->
+      <!-- <div class="col-8 d-flex justify-content-center align-items-center"> -->
+		<img class="bg" :src="require('@/assets/img/loginbg.jpg')">
+	<div class="container">
+		<div></div>
+        <div class="login-content" style="margin-top: 10%; margin-left: 100%;">
           <form @submit.prevent="handleLogin">
             <img :src="require('@/assets/img/avatar.svg')" />
             <h2 class="title">Login</h2>
@@ -154,7 +156,7 @@ onMounted(() => {
         </div>
         <div></div>
       </div>
-    </section>
+    <!-- </section> -->
   </body>
 </template>
 
@@ -300,6 +302,7 @@ a:hover {
 }
 
 .login-content {
+display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -477,9 +480,9 @@ a:hover {
     grid-gap: 5rem;
   }
 
-  // .login-content {
-  //   margin-right: 60%;
-  // }
+  .login-content {
+    margin-right: 100%;
+  }
 }
 
 @media screen and (max-width: 1050px) {
@@ -487,9 +490,13 @@ a:hover {
     grid-gap: 5rem;
   }
 
-  // .login-content {
-  //   margin-right: 100%;
-  // }
+  .login-content {
+    margin-right: 100%;
+  }
+
+  .bg {
+	width: 50%;
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -497,9 +504,13 @@ a:hover {
     width: 290px;
   }
 
-  // .login-content {
-  // margin-right: 100%;
-  // }
+  .login-content {
+  margin-right: 100%;
+  }
+
+  .bg {
+	display: none;
+  }
 }
 
 @media screen and (max-width: 999px) {
@@ -513,7 +524,7 @@ a:hover {
 
   .login-content {
     justify-content: center;
-    // margin-right: 90%;
+    margin-right: 90%;
   }
 }
 </style>

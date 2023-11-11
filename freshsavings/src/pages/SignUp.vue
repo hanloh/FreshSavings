@@ -471,7 +471,7 @@ a:hover{
 		grid-gap: 5rem;
 	}
 	.login-content{
-        margin-right: 60%;
+        margin-right: 100%;
 	}
 }
 
